@@ -38,6 +38,6 @@
     });
   }
 </script>
-<% if @manifestation.try(:isbn?) %>
-  <script src="https://www.googleapis.com/books/v1/volumes?q=isbn:<%= @manifestation.isbn %>&amp;callback=addTheCover"></script>
+<% if @manifestation.try(:call_isbn?) %>
+  <script src="https://www.googleapis.com/books/v1/volumes?q=isbn:<%= @manifestation.call_isbn %>&amp;callback=addTheCover"></script>
 <% end %>

@@ -1,4 +1,4 @@
-<% if manifestation.isbn? %>
+<% if manifestation.call_isbn? %>
   <div id="gbsthumbnail" class="book_jacket"></div>
 <% else %>
   <%= image_tag("unknown_resource.png", :size => "150x150", :alt => "*") %>
