@@ -1,7 +1,9 @@
 module EnjuBookJacket
   module BookJacketHelper
     def book_jacket(manifestation)
+      logger.error "######### book_jacket start ########"
       if manifestation.picture_files.exists?
+        logger.error "######### picture_files. EXIST ########"
         link = ''
         manifestation.picture_files.each_with_index do |picture_file, i|
           if i == 0
@@ -12,17 +14,24 @@ module EnjuBookJacket
             end
           end
         end
+        logger.error "######### link = #{link} ########"
         return link.html_safe
       else
+        logger.error "######### picture_files. NOT ########"
         link = book_jacket_tag(manifestation)
+        logger.error "######### link1 = #{link} ########"
         unless link
           link = screenshot_tag(manifestation)
+          logger.error "######### link2 = #{link} ########"
         end
       end
 
       unless link
         link = link_to image_tag('unknown_resource.png', :width => '100', :height => '100', :alt => '*', :itemprop => 'image'), manifestation
+        logger.error "######### link3 = #{link} ########"
       end
+      logger.error "######### book_jacket end ########"
+      logger.error "######### link4 = #{link} ########"
       link
     end
 
@@ -41,6 +50,9 @@ module EnjuBookJacket
     end
 
     def book_jacket_tag(manifestation, generator = Setting.book_jacket.source)
+      logger.error "######## book_jacket_tag start #######"
+      logger.error "######## manifestation = #{manifestation} #######"
+      logger.error "######## generator = #{generator} #######"
       return nil unless manifestation
       case generator
       when :amazon
