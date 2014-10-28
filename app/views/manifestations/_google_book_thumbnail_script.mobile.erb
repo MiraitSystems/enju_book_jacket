@@ -1,0 +1,29 @@
+  <script type="text/javascript">
+    function add_book_thumbnail(thumbnail_id, booksInfo) {
+      var link = '';
+      for (i in booksInfo.items) {
+        var book = booksInfo.items[i]
+        var image = book.volumeInfo.imageLinks;
+        if (image && image.smallThumbnail != undefined) {
+          var thumbnail = image.smallThumbnail.replace('zoom=1', 'zoom=5');
+          if ( document.location.protocol == 'https:' ) {
+            var parser = document.createElement('a');
+            parser.href = thumbnail;
+            parser.protocol = 'https:';
+            parser.hostname = 'encrypted.google.com';
+            thumbnail = parser.href;
+          }
+          if (thumbnail) {
+            var link = '<img src="' + thumbnail + '" alt="' + book.volumeInfo.title + '" />';
+          }
+        }
+      }
+      if (link === '') {
+        var link = '<%= image_tag("unknown_resource.png", :size => "50x50", :alt => "*") %>';
+      }
+      var thumb_element = document.getElementById(thumbnail_id);
+      if (thumb_element) {
+        thumb_element.innerHTML = link;
+      }
+    }
+  </script>
