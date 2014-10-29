@@ -19,7 +19,11 @@
         }
       }
       if (link === '') {
-        var link = '<%= image_tag("unknown_resource.png", :size => "50x50", :alt => "*") %>';
+        <% if Setting.book_jacket.unknown_resource.blank? %>
+          var link = '<%= image_tag("unknown_resource.png", :size => "50x50", :alt => "*") %>';
+        <% else %>
+          var link = '<%= Setting.book_jacket.unknown_resource %>';
+        <% end %>
       }
       var thumb_element = document.getElementById(thumbnail_id);
       if (thumb_element) {
