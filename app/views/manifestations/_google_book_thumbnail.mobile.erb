@@ -1,0 +1,16 @@
+  <% if manifestation.call_isbn? %>
+    <script>
+      $.getJSON("https://www.googleapis.com/books/v1/volumes?q=isbn:<%= manifestation.call_isbn %>",
+      function(data){
+        add_book_thumbnail("bookjacket_thumbnail<%= index %>", data)
+      });
+    </script>
+
+    <div id="bookjacket_thumbnail<%= index %>"></div>
+  <% else %>
+    <% if Setting.book_jacket.unknown_resource.blank? %>
+      <%= image_tag("unknown_resource.png", :size => "50x50", :alt => "*") %>
+    <% else %>
+      <%= Setting.book_jacket.unknown_resource %>
+    <% end %>
+  <% end %>
